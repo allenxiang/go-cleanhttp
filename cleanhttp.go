@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"runtime"
 	"time"
+	"crypto/tls"	
 )
 
 // DefaultTransport returns a new http.Transport with similar default values to
@@ -23,6 +24,7 @@ func DefaultTransport() *http.Transport {
 func DefaultPooledTransport() *http.Transport {
 	transport := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
+		TLSClientConfig = &tls.Config{InsecureSkipVerify: true},
 		DialContext: (&net.Dialer{
 			Timeout:   30 * time.Second,
 			KeepAlive: 30 * time.Second,
